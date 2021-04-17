@@ -67,157 +67,158 @@ const Signup = (props) => {
 
         <div>
             <ToastContainer />
-
-            {
-                !role &&
-                <Container className="signup-component">
-                    <Row>
-                        <Col className="d-flex flex-row-reverse bd-highlight">
-                            <div className="card" style={{ width: "18rem" }}>
-                                <div className="card-body">
-                                    <h5 className="card-title">Customer</h5>
-                                    <button className="btn bg-warning font-weight-bold"
-                                        onClick={() => {
-                                            showSignupForm("customer")
-                                        }}>
-                                        SignUp
+            <Container>
+                {
+                    !role &&
+                    <Container className="signup-component">
+                        <Row>
+                            <Col md="6">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Customer</h5>
+                                        <button className="btn bg-warning font-weight-bold"
+                                            onClick={() => {
+                                                showSignupForm("customer")
+                                            }}>
+                                            SignUp
                                 </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Col>
+                            </Col>
 
-                        <Col>
-                            <div className="card" style={{ width: "18rem" }}>
-                                <div className="card-body">
-                                    <h5 className="card-title">Home Maker</h5>
-                                    <button className="btn bg-warning font-weight-bold"
-                                        onClick={() => {
-                                            showSignupForm("homeMaker")
-                                        }}>
-                                        SignUp
+                            <Col md="6">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h5 className="card-title">Home Maker</h5>
+                                        <button className="btn bg-warning font-weight-bold"
+                                            onClick={() => {
+                                                showSignupForm("homeMaker")
+                                            }}>
+                                            SignUp
                                 </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
-            }
+                            </Col>
+                        </Row>
+                    </Container>
+                }
 
-            {/* Signup Form */}
-            {
-                role &&
-                <Card className="signup-form">
-                    <Fragment>
-                        <Form onSubmit={handleForm}>
-                            <h3 className="text-center my-3 py-3">Register {role}</h3>
+                {/* Signup Form */}
+                {
+                    role &&
+                    <Card className="signup-form">
+                        <Fragment>
+                            <Form onSubmit={handleForm}>
+                                <h3 className="text-center my-3 py-3">Register {role}</h3>
 
-                            <div className="form-row">
-                                <FormGroup className="form-col col-md-6 ">
-                                    <Input
-                                        type="email"
-                                        placeholder="Enter Email"
-                                        onChange={(e) => {
-                                            setUser({ ...user, email: e.target.value })
-                                        }}
-                                    />
-                                </FormGroup>
-                                <FormGroup className="form-col col-md-6 ">
-                                    <Input
-                                        type="password"
-                                        placeholder="Enter Password"
-                                        id="password"
-                                        onChange={(e) => {
-                                            setUser({ ...user, password: e.target.value })
-                                        }}
-                                    />
-                                </FormGroup>
-                            </div>
-                            <div className="form-row">
-                            <FormGroup className="form-col col-md-6 ">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter Name"
-                                    id="name"
-                                    onChange={(e) => {
-                                        setUser({ ...user, name: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            <FormGroup className="form-col col-md-6 ">
-                                <Input
-                                    type="phoneNo"
-                                    placeholder="Enter Phone Number"
-                                    id="phoneNo"
-                                    onChange={(e) => {
-                                        setUser({ ...user, phoneNo: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            </div>
-                            <div className="form-row">
-                            <FormGroup className="form-col col-md-12 ">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter Primary Address"
-                                    id="primaryAddress"
-                                    onChange={(e) => {
-                                        setUser({ ...user, primaryAddress: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            </div>
-                            <div className="form-row">
-                            <FormGroup className="form-col col-md-3 ">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter City"
-                                    id="city"
-                                    onChange={(e) => {
-                                        setUser({ ...user, city: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            <FormGroup className="form-col col-md-3 ">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter State"
-                                    id="state"
-                                    onChange={(e) => {
-                                        setUser({ ...user, state: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            <FormGroup className="form-col col-md-3 ">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter Country"
-                                    id="country"
-                                    onChange={(e) => {
-                                        setUser({ ...user, country: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            <FormGroup className="form-col col-md-3 ">
-                                <Input
-                                    type="number"
-                                    placeholder="Enter Pincode"
-                                    id="pincode"
-                                    onChange={(e) => {
-                                        setUser({ ...user, pincode: e.target.value })
-                                    }}
-                                />
-                            </FormGroup>
-                            </div>
-                            <Container>
-                                <Button type="submit" color="success mr-3" className="btn-lg  btn-block" >Signup</Button>
-                                <Button type="reset" color="warning" className="btn-lg  btn-block" onClick={() => {
-                                    setUser({});// passing blank object
-                                }}>Clear</Button>
-                            </Container>
-                        </Form>
-                    </Fragment>
-                </Card>
-            }
+                                <div className="form-row">
+                                    <FormGroup className="form-col col-md-6 ">
+                                        <Input
+                                            type="email"
+                                            placeholder="Enter Email"
+                                            onChange={(e) => {
+                                                setUser({ ...user, email: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="form-col col-md-6 ">
+                                        <Input
+                                            type="password"
+                                            placeholder="Enter Password"
+                                            id="password"
+                                            onChange={(e) => {
+                                                setUser({ ...user, password: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                </div>
+                                <div className="form-row">
+                                    <FormGroup className="form-col col-md-6 ">
+                                        <Input
+                                            type="text"
+                                            placeholder="Enter Name"
+                                            id="name"
+                                            onChange={(e) => {
+                                                setUser({ ...user, name: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="form-col col-md-6 ">
+                                        <Input
+                                            type="phoneNo"
+                                            placeholder="Enter Phone Number"
+                                            id="phoneNo"
+                                            onChange={(e) => {
+                                                setUser({ ...user, phoneNo: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                </div>
+                                <div className="form-row">
+                                    <FormGroup className="form-col col-md-12 ">
+                                        <Input
+                                            type="text"
+                                            placeholder="Enter Primary Address"
+                                            id="primaryAddress"
+                                            onChange={(e) => {
+                                                setUser({ ...user, primaryAddress: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                </div>
+                                <div className="form-row">
+                                    <FormGroup className="form-col col-md-3 ">
+                                        <Input
+                                            type="text"
+                                            placeholder="Enter City"
+                                            id="city"
+                                            onChange={(e) => {
+                                                setUser({ ...user, city: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="form-col col-md-3 ">
+                                        <Input
+                                            type="text"
+                                            placeholder="Enter State"
+                                            id="state"
+                                            onChange={(e) => {
+                                                setUser({ ...user, state: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="form-col col-md-3 ">
+                                        <Input
+                                            type="text"
+                                            placeholder="Enter Country"
+                                            id="country"
+                                            onChange={(e) => {
+                                                setUser({ ...user, country: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup className="form-col col-md-3 ">
+                                        <Input
+                                            type="number"
+                                            placeholder="Enter Pincode"
+                                            id="pincode"
+                                            onChange={(e) => {
+                                                setUser({ ...user, pincode: e.target.value })
+                                            }}
+                                        />
+                                    </FormGroup>
+                                </div>
+                                <Container>
+                                    <Button type="submit" color="success mr-3" className="btn-lg  btn-block" >Signup</Button>
+                                    <Button type="reset" color="warning" className="btn-lg  btn-block" onClick={() => {
+                                        setUser({});// passing blank object
+                                    }}>Clear</Button>
+                                </Container>
+                            </Form>
+                        </Fragment>
+                    </Card>
+                }
+            </Container>
         </div>
     )
 }

@@ -72,12 +72,11 @@ const Login = (props) => {
             <ToastContainer />
             <Router>
                 <Container>
-
                     {
                         !role &&
                         <Container className="login-component">
                             <Row>
-                                <Col>
+                                <Col md="4">
                                     <div className="card">
                                         <div className="card-body">
                                             <h5 className="card-title">Admin</h5>
@@ -92,7 +91,7 @@ const Login = (props) => {
                                     </div>
                                 </Col>
 
-                                <Col>
+                                <Col md="4">
                                     <div className="card">
                                         <div className="card-body">
                                             <h5 className="card-title">Customer</h5>
@@ -107,7 +106,7 @@ const Login = (props) => {
                                     </div>
                                 </Col>
 
-                                <Col>
+                                <Col md="4">
                                     <div className="card">
                                         <div className="card-body">
                                             <h5 className="card-title">Home Maker</h5>

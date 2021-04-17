@@ -4,6 +4,8 @@ import { toast } from "react-toastify"
 import HomeMakerService from "../../service/HomeMakerService"
 import SessionService from "../../service/SessionService"
 
+import ReactPaginate from "react-paginate";
+
 const HomeMakerCustomers = () => {
   const [customers, setCustomers] = useState([])
   useEffect(() => {
@@ -27,11 +29,36 @@ const HomeMakerCustomers = () => {
     myCustomers()
   }, [])
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const customersPerPage = 3;
+  const pagesVisited = pageNumber * customersPerPage;
+
+  const displayItems = customers
+    .slice(pagesVisited, pagesVisited + customersPerPage)
+    .map((customer) => {
+      return (
+        <tr className="items">
+          <td>{customer.id}</td>
+          <td>{customer.name}</td>
+          <td>{customer.email}</td>
+          <td>{customer.phoneNo}</td>
+          <td>{customer.planPackage}</td>
+          <td>{customer.planType}</td>
+        </tr>
+      );
+    });
+
+  const pageCount = Math.ceil(customers.length / customersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
   return (
     <div className="text-center">
       <Jumbotron className="text-center" style={{ background: "darkgray" }}>
         <h3>All Customer Details</h3>
-        <Table className="table table-striped" hover bordered>
+        <Table className="table table-striped table-responsive-lg" hover bordered>
           <thead style={{ background: "#333", color: "white" }}>
             <tr>
               {/* <th className="hidden">Id</th> */}
@@ -45,19 +72,24 @@ const HomeMakerCustomers = () => {
           </thead>
           <tbody>
             {
-              customers.map((customer, index) =>
-                <tr key={index}>
-                  <td>{customer.id}</td>
-                  <td>{customer.name}</td>
-                  <td>{customer.email}</td>
-                  <td>{customer.phoneNo}</td>
-                  <td>{customer.planPackage}</td>
-                  <td>{customer.planType}</td>
-                </tr>
-              )
+              customers && displayItems
             }
           </tbody>
         </Table>
+        {
+          customers &&
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
+        }
 
       </Jumbotron>
     </div>

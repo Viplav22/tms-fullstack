@@ -1,9 +1,11 @@
 .login-component{
-  margin-bottom: 180px;
+  margin-top: 90px;
+  margin-bottom: 90px;
 }
 
 .signup-component{
-  margin-bottom: 240px;
+  margin-top: 120px;
+  margin-bottom: 120px;
 }
 
 .navbar {
@@ -30,7 +32,7 @@
 }
 
 .navbar-toggler-icon{
-  background-color:white;
+  background-color:rgb(255, 255, 255);
 }
 
 .main-footer{
@@ -38,8 +40,6 @@
   border-radius: 10px;
   background-color: #383737;
   padding: 0.5rem;
-  /* position:relative; */
-  /* bottom: 0; */
   width: 100%;
 }
 
@@ -59,14 +59,6 @@
   border-radius: 20px;
 }
 .signup-form{
-  /* width: 100%;
-  max-width:500px;
-  padding: 15px;
-  margin: auto;
-  margin-top:20px;
-  height: 98%;
-  border: 4px solid grey; */
-
   width: 60%;
   /* max-width:500px; */
   padding: 15px;
@@ -149,4 +141,36 @@
 
 #img{
   border-radius: 10px;
+}
+
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid rgb(95, 93, 93);
+  color: #000000;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: rgb(95, 93, 93);
+}
+
+.paginationActive a {
+  color: rgb(250, 250, 250);
+  background-color: rgb(95, 93, 93);
+}
+
+.paginationDisabled a {
+  color :rgb(90, 90, 90);
+  background-color: #333333;
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom"
 import SessionService from '../service/SessionService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faSignInAlt, faSignOutAlt, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faSignInAlt, faSignOutAlt, faHome, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 
 
 class Header extends Component {
@@ -51,7 +51,7 @@ class Header extends Component {
                     <span className="navbar-text">Maa Ki Rasoi</span>
 
                     {
-                        user && <span className="ml-5 nav-link nav-link-inverted">
+                        user && <span className="ml-5 nav-link nav-link-inverted mr-auto">
                             <Link to={"/user"} className="nav-link"><FontAwesomeIcon icon={faUser} />  {role} : {user.name}
                             </Link>
                         </span>
@@ -60,7 +60,7 @@ class Header extends Component {
 
                     {/* <!-- Collasable button for small screens --> */}
                     <button className="navbar-toggler" data-toggle="collapse" data-target="#nb">
-                        <span className="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"><FontAwesomeIcon icon={faBars} /></span>
                     </button>
                     {/* <!-- div to contain the collapable contents --> */}
                     <div className="collapse navbar-collapse" id="nb">

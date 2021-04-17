@@ -4,7 +4,9 @@ import CustomerService from "../../service/CustomerService"
 import { toast } from "react-toastify"
 import HomeMakerService from "../../service/HomeMakerService"
 import SessionService from "../../service/SessionService"
-import $ from 'jquery'; 
+import $ from 'jquery';
+
+import ReactPaginate from "react-paginate";
 
 const CustomerHm = (props) => {
 
@@ -59,29 +61,56 @@ const CustomerHm = (props) => {
     })
   }
 
- 
-
   //Showing homeMaker by City
   const homeMakersByCity = (city) => {
-    if(city !== 'All Cities'){
+    if (city !== 'All Cities') {
       HomeMakerService.homeMakersByCity(city)
-      .then((response) => {
-        console.log(response)
-        setHomeMakers(response.data.result)
-      }, (error) => {
-        // for error
-        console.log(error)
-        toast.error("something went wrong", { position: "bottom-center" })
-      })
+        .then((response) => {
+          console.log(response)
+          setHomeMakers(response.data.result)
+        }, (error) => {
+          // for error
+          console.log(error)
+          toast.error("something went wrong", { position: "bottom-center" })
+        })
     }
-    else{
+    else {
       allHomeMakers()
     }
   }
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const homeMakersPerPage = 3;
+  const pagesVisited = pageNumber * homeMakersPerPage;
+
+  const displayItems = homeMakers
+    .slice(pagesVisited, pagesVisited + homeMakersPerPage)
+    .map((homeMaker) => {
+      return (
+        <tr className="items">
+          <td>{homeMaker.name}</td>
+          <td>{homeMaker.email}</td>
+          <td>{homeMaker.phoneNo}</td>
+          <td>{homeMaker.city}</td>
+          <td>
+            <button className="btn btn-success" onClick={() => {
+              addHomeMaker(homeMaker.id)
+            }}> Select</button>
+          </td>
+        </tr>
+      );
+    });
+
+  const pageCount = Math.ceil(homeMakers.length / homeMakersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   return (
     <div className="text-center">
-      <Jumbotron className="text-center" style={{ background: "darkgray" }}>
+      <Jumbotron style={{ background: "darkgray" }}>
 
         <h3>Select your City : </h3>
         <select id="myCity" className="form-select selectpicker my-3 btn btn-dark" onChange={
@@ -91,7 +120,7 @@ const CustomerHm = (props) => {
         }>
           <option value="All Cities">All Cities</option>
           {
-            cities.map((city,index) =>
+            cities.map((city, index) =>
               <option key={index} value={city}>{city}</option>
             )
           }
@@ -99,10 +128,9 @@ const CustomerHm = (props) => {
 
         <h1>All Home Makers : {$('#myCity').find(":selected").val()}</h1>
 
-        <Table hover bordered>
+        <Table hover bordered className="table table-striped table-responsive-lg">
           <thead style={{ background: "#333", color: "white" }}>
             <tr>
-              {/* <th className="hidden">Id</th> */}
               <th>Name</th>
               <th>Email</th>
               <th>Phone Number</th>
@@ -112,23 +140,24 @@ const CustomerHm = (props) => {
           </thead>
           <tbody>
             {
-              homeMakers.map((homeMaker,index) =>
-                <tr key={index}>
-                  <td>{homeMaker.name}</td>
-                  <td>{homeMaker.email}</td>
-                  <td>{homeMaker.phoneNo}</td>
-                  <td>{homeMaker.city}</td>
-                  <td>
-                    <button className="btn btn-success" onClick={() => {
-                      addHomeMaker(homeMaker.id)
-                    }}> Select</button>
-                  </td>
-                </tr>
-              )
+              homeMakers && displayItems
             }
           </tbody>
         </Table>
-
+        {
+          homeMakers &&
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
+        }
       </Jumbotron>
     </div>
   )

@@ -11,10 +11,9 @@ const AboutUs = () => {
         <br />
         <br />
         <Card inverse>
-          <CardImg width="100%" src="https://cdn.pixabay.com/photo/2014/06/11/17/00/food-366875_1280.jpg" alt="Card image cap" />
+          <CardImg width="100%" height="410px"src="https://cdn.pixabay.com/photo/2014/06/11/17/00/food-366875_1280.jpg" alt="Card image cap" />
           <CardImgOverlay>
-            {/* <CardTitle tag="h1">About Us</CardTitle> */}
-            <CardText tag="h4">
+            <CardText tag="h6">
               The purpose of our application is to create a platform which provides an opportunity to the local-area homemakers to start their own Tiffin Services while ensuring the local-area bachelors diminish their hunger on a budget.
 
               The users of our web-application will need to create an account as a customer to avail Tiffin Services based on the availability of the Homemaker in the respective locality.
@@ -32,12 +31,12 @@ const AboutUs = () => {
         <h2 style={{ color: 'white' }}>-: CONTACT US :-</h2>
         <br />
 
-        <div className="fluid-container row">
+        <div className="container row">
           {/* First Card */}
-          <div className="fluid-container flip-card col-4 my-2">
+          <div className="container flip-card col-lg-4 col-sm-12 my-2">
             <div className="flip-card-inner">
               <div className="flip-card-front">
-                <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C5103AQGH5IY-rRRsPQ/profile-displayphoto-shrink_800_800/0/1530166383419?e=1622073600&v=beta&t=ZpvzMd6D6VTyIEQyAfwUOByOcvcJgwXF9Zd21Hw_p4g" alt="Avatar" />
+                <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C5603AQHLvRjxKoWtpQ/profile-displayphoto-shrink_800_800/0/1618666644363?e=1623888000&v=beta&t=Iorzqob3ZWnG5d6i0VUl-S5THfx08tQo1g3WGMALz4o" alt="Avatar" />
               </div>
               <div className="flip-card-back">
                 <h5 className="mt-2">VIPLAV SIRSIKAR</h5>
@@ -48,7 +47,7 @@ const AboutUs = () => {
             </div>
           </div>
           {/* Second Card */}
-          <div className="fluid-container flip-card col-4 my-2">
+          <div className="container flip-card col-lg-4 col-sm-12 my-2">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C4E03AQGPe1m4aWJsDQ/profile-displayphoto-shrink_800_800/0/1614354754787?e=1622073600&v=beta&t=90o5UiSTq2JLEXnJgTbPtuZNFncx6lTCSok33lAfwjA" alt="Avatar" />
@@ -63,7 +62,7 @@ const AboutUs = () => {
           </div>
 
           {/* Third Card */}
-          <div className="fluid-container flip-card col-4 my-2">
+          <div className="container flip-card col-lg-4 col-sm-12 my-2">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C4E03AQGW9wgETyi4pA/profile-displayphoto-shrink_800_800/0/1616747268647?e=1622073600&v=beta&t=JyYiogFuGqQF45A49Rh5gsE9c7yxX3ydqzIH8qcNIE8" alt="Avatar" />
@@ -78,7 +77,7 @@ const AboutUs = () => {
           </div>
 
           {/* Fourth Card */}
-          <div className="fluid-container flip-card col-4 my-2">
+          <div className="container flip-card col-lg-4 col-sm-12 my-2">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C4E03AQELewH9OBKB8A/profile-displayphoto-shrink_800_800/0/1616395564920?e=1622073600&v=beta&t=nfMZtrYkb5xgl0uRBmMfdrfMxMfHzu9iW49yRR_wqmY" alt="Avatar" />
@@ -92,7 +91,7 @@ const AboutUs = () => {
             </div>
           </div>
           {/* Fifth Card */}
-          <div className="fluid-container flip-card col-4 my-2">
+          <div className="container flip-card col-lg-4 col-sm-12 my-2">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C5103AQGVSMX-6-uPyQ/profile-displayphoto-shrink_800_800/0/1542785912198?e=1622073600&v=beta&t=wrM_R1CjgHBlAo50UnVFYR7qcY3uBPP7ArRIAc5epRs" alt="Avatar" />

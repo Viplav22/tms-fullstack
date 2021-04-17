@@ -1,8 +1,10 @@
 import React, { useEffect, useState, } from "react"
-import { Jumbotron, Table } from "reactstrap"
+import { Table } from "reactstrap"
 import CustomerService from "../../service/CustomerService"
 import { toast } from "react-toastify"
 import HomeMakerService from "../../service/HomeMakerService"
+
+import ReactPaginate from "react-paginate";
 
 const AdminManageHomeMakers = () => {
 
@@ -10,7 +12,7 @@ const AdminManageHomeMakers = () => {
   const [reload, setReload] = useState(1)
 
   useEffect(() => {
-    document.title = "Admin"
+    document.title = "Admin || Home Makers"
     allHomeMakers()
   }, [reload])
 
@@ -26,6 +28,34 @@ const AdminManageHomeMakers = () => {
       })
   }
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const homeMakersPerPage = 3;
+  const pagesVisited = pageNumber * homeMakersPerPage;
+
+  const displayItems = homeMakers
+    .slice(pagesVisited, pagesVisited + homeMakersPerPage)
+    .map((homeMaker) => {
+      return (
+        <tr className="items">
+          <td>{homeMaker.id}</td>
+          <td>{homeMaker.name}</td>
+          <td>{homeMaker.email}</td>
+          <td>{homeMaker.phoneNo}</td>
+          <td>{homeMaker.city}</td>
+          <td>
+            <button className="btn btn-danger" onClick={() => removeHomeMaker(homeMaker.id)}> Remove</button>
+          </td>
+        </tr>
+      );
+    });
+
+  const pageCount = Math.ceil(homeMakers.length / homeMakersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   const removeHomeMaker = (hmId) => {
     console.log(hmId)
     HomeMakerService.deleteUser(hmId).then(response => {
@@ -36,11 +66,10 @@ const AdminManageHomeMakers = () => {
   }
 
   return (
-    <div className="text-center">
-      <Jumbotron className="text-center" style={{ background: "darkgray" }}>
+      <div className="text-center" style={{ background: "darkgray" }}>
         <h3>All Home Makers</h3>
         <p>Manage home makers here...</p>
-        <Table hover bordered>
+        <Table hover bordered className="table table-striped table-responsive-lg">
           <thead style={{ background: "#333", color: "white" }}>
             <tr>
               <th>HM Id</th>
@@ -53,23 +82,24 @@ const AdminManageHomeMakers = () => {
           </thead>
           <tbody>
             {
-              homeMakers.map((homeMaker,index) =>
-                <tr key={index}>
-                  <td>{homeMaker.id}</td>
-                  <td>{homeMaker.name}</td>
-                  <td>{homeMaker.email}</td>
-                  <td>{homeMaker.phoneNo}</td>
-                  <td>{homeMaker.city}</td>
-                  <td>
-                    <button className="btn btn-danger" onClick={() => removeHomeMaker(homeMaker.id)}> Remove</button>
-                  </td>
-                </tr>
-              )
+              homeMakers && displayItems
             }
           </tbody>
         </Table>
-
-      </Jumbotron>
+        {
+          homeMakers &&
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
+        }
     </div>
   )
 }

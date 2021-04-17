@@ -38,28 +38,28 @@ const CustomerProfile = (props) => {
           </Media>
           <Media body>
             <Media heading>
-              <h1 >Welcome {user.name}</h1>
+              <h2 >Welcome {user.name}</h2>
             </Media>
           </Media>
         </Media>
         <br />
         <CardDeck>
           <Card>
-            <CardImg top width="100%" src="https://icons.iconarchive.com/icons/aha-soft/large-business/256/Two-storied-house-icon.png" alt="Card image cap" />
+            <CardImg top height="125px" width="100px" src="https://icons.iconarchive.com/icons/aha-soft/large-business/256/Two-storied-house-icon.png" alt="Card image cap" />
             <CardBody>
               <CardTitle tag="h5">ADDRESS</CardTitle>
               <CardSubtitle tag="h6" className="mb-2 text-muted">{user.primaryAddress}</CardSubtitle>
             </CardBody>
           </Card>
           <Card>
-            <CardImg top width="100%" src="https://icons.iconarchive.com/icons/dario-arnaez/genesis-3G/256/Emails-Folder-icon.png" alt="Card image cap" />
+            <CardImg top height="125px" width="100px" src="https://icons.iconarchive.com/icons/dario-arnaez/genesis-3G/256/Emails-Folder-icon.png" alt="Card image cap" />
             <CardBody>
               <CardTitle tag="h5">EMAIL ADDRESS</CardTitle>
               <CardSubtitle tag="h6" className="mb-2 text-muted">{user.email}</CardSubtitle>
             </CardBody>
           </Card>
           <Card>
-            <CardImg top width="100%" src="https://icons.iconarchive.com/icons/iconshock/real-vista-networking/256/phone-icon.png" alt="Card image cap" />
+            <CardImg top height="125px" width="100px" src="https://icons.iconarchive.com/icons/iconshock/real-vista-networking/256/phone-icon.png" alt="Card image cap" />
             <CardBody>
               <CardTitle tag="h5">PHONE NUMBER</CardTitle>
               <CardSubtitle tag="h6" className="mb-2 text-muted">{user.phoneNo}</CardSubtitle>

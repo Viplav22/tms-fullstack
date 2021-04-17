@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Jumbotron, Table } from "reactstrap"
+import { Table } from "reactstrap"
 import CustomerService from "../../service/CustomerService"
 import { toast } from "react-toastify"
 import SessionService from "../../service/SessionService"
+
+import ReactPaginate from "react-paginate";
 
 const CustomerOrders = () => {
 
@@ -23,12 +25,41 @@ const CustomerOrders = () => {
 
   }, [user.id])
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const ordersPerPage = 3;
+  const pagesVisited = pageNumber * ordersPerPage;
+
+  const displayItems = orders
+    .slice(pagesVisited, pagesVisited + ordersPerPage)
+    .map((order) => {
+      return (
+        <tr className="items">
+          <td>{order.orderId}</td>
+          <td>{order.paymentId}</td>
+          <td>{order.dateTime}</td>
+          <td>{order.receipt}</td>
+          <td>{order.amount / 100}</td>
+          <td>{order.status}</td>
+          <td>{order.customerId}</td>
+          <td>{order.homeMakerId}</td>
+        </tr>
+      );
+    });
+
+  const pageCount = Math.ceil(orders.length / ordersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
+
   return (
-    <div className="text-center">
-      <Jumbotron className="text-center" style={{ background: "darkgray" }}>
+    <div className="container text-center">
+      <div style={{ background: "darkgray" }}>
 
         <h3>All Orders : </h3>
-        <Table hover bordered className="table table-striped">
+        <Table hover bordered className="table table-striped table-responsive-xl">
           <thead style={{ background: "#333", color: "white" }}>
             <tr>
               <th>Order Id</th>
@@ -37,30 +68,32 @@ const CustomerOrders = () => {
               <th>Receipt</th>
               <th>Amount</th>
               <th>Status</th>
-              <th>Customer Id</th>
-              <th>Home Maker Id</th>
+              <th>Cus Id</th>
+              <th>Hm Id</th>
             </tr>
           </thead>
           <tbody>
             {
-              orders &&
-              orders.map((order,index) =>
-                <tr key={index}>
-                  <td>{order.orderId}</td>
-                  <td>{order.paymentId}</td>
-                  <td>{order.dateTime}</td>
-                  <td>{order.receipt}</td>
-                  <td>{order.amount / 100}</td>
-                  <td>{order.status}</td>
-                  <td>{order.customerId}</td>
-                  <td>{order.homeMakerId}</td>
-                </tr>
-              )
+              orders && displayItems
             }
           </tbody>
         </Table>
+        {
+          orders &&
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
+        }
 
-      </Jumbotron>
+      </div>
     </div>
   )
 }

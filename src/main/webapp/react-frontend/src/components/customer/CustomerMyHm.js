@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { Jumbotron, Table, Card, Button, CardImg, CardTitle, CardDeck,
-  CardSubtitle, CardBody } from "reactstrap"
+import {
+  Jumbotron, Table, Card, Button, CardImg, CardTitle, CardDeck,
+  CardSubtitle, CardBody
+} from "reactstrap"
 import SessionService from "../../service/SessionService"
 import CustomerService from "../../service/CustomerService"
 import { BrowserRouter as Router } from "react-router-dom"
@@ -52,7 +54,7 @@ const CustomerMyHm = (props) => {
   return (
     <div className="text-center">
       <Router>
-        <Jumbotron className="text-center" style={{ background: "darkgray" }}>
+        <div className="text-center" style={{ background: "darkgray" }}>
           <h1>Selected HomeMaker Details</h1>
           <p>You can manage your home makers here...</p>
           {
@@ -64,28 +66,29 @@ const CustomerMyHm = (props) => {
           }
           {
             homeMaker &&
-            <Table className="table table-striped" hover bordered>
-              <thead style={{ background: "#333", color: "white" }}>
-                <tr>
-                  {/* <th className="hidden">Id</th> */}
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone Number</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{homeMaker.name}</td>
-                  <td>{homeMaker.email}</td>
-                  <td>{homeMaker.phoneNo}</td>
-                  <td>
-                    <button className="btn btn-danger" onClick={removeHomeMaker}>
-                      Remove</button>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+            <div className="container" style={{ background: "darkgray" }}>
+              <Table className="table table-striped table-responsive-lg" hover bordered>
+                <thead style={{ background: "#333", color: "white" }}>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{homeMaker.name}</td>
+                    <td>{homeMaker.email}</td>
+                    <td>{homeMaker.phoneNo}</td>
+                    <td>
+                      <button className="btn btn-danger" onClick={removeHomeMaker}>
+                        Remove</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
           }
           {
             homeMaker &&
@@ -95,8 +98,8 @@ const CustomerMyHm = (props) => {
                 <h2 style={{ color: 'white' }}> Your selected plan : <span style={{ color: 'black' }}>{user.planType}</span> and package : <span style={{ color: 'black' }}>{user.planPackage}</span></h2>
               }
               <div>
-                <br/>
-                <h2 style={{ color: "white" }}>Select/Change Your Plan</h2>
+                <br />
+                <h2 style={{ color: "white" }}>Select / Change Your Plan</h2>
                 <p style={{ color: "white" }}>You can manage your Plans here...</p>
 
                 <select className="form-select selectpicker my-3 btn btn-info" aria-label="Default select example " id="plan-type"  >
@@ -136,7 +139,7 @@ const CustomerMyHm = (props) => {
               </div>
             </Jumbotron>
           }
-        </Jumbotron>
+        </div>
       </Router>
     </div>
   )

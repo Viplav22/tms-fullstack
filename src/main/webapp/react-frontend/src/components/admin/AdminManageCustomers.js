@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { Jumbotron, Table } from "reactstrap"
+import { Table } from "reactstrap"
 import { toast } from "react-toastify"
 import HomeMakerService from "../../service/HomeMakerService"
 import CustomerService from "../../service/CustomerService"
+
+import ReactPaginate from "react-paginate";
 
 
 const AdminManageCustomers = () => {
@@ -26,6 +28,33 @@ const AdminManageCustomers = () => {
       })
   }
 
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const customersPerPage = 3;
+  const pagesVisited = pageNumber * customersPerPage;
+
+  const displayItems = customers
+    .slice(pagesVisited, pagesVisited + customersPerPage)
+    .map((customer) => {
+      return (
+        <tr className="items">
+          <td>{customer.id}</td>
+          <td>{customer.name}</td>
+          <td>{customer.email}</td>
+          <td>{customer.phoneNo}</td>
+          <td>{customer.city}</td>
+          <td>
+            <button className="btn btn-danger" onClick={() => removeCustomer(customer.id)}> Remove</button>
+          </td>
+        </tr>
+      );
+    });
+
+  const pageCount = Math.ceil(customers.length / customersPerPage);
+
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   const removeCustomer = (custId) => {
     console.log(custId)
@@ -37,11 +66,10 @@ const AdminManageCustomers = () => {
   }
 
   return (
-    <div className="text-center">
-      <Jumbotron className="text-center" style={{ background: "darkgray" }}>
+      <div className="text-center" style={{ background: "darkgray" }}>
         <h3>All Customers</h3>
         <p>You can manage customers here...</p>
-        <Table hover bordered>
+        <Table hover bordered className="table table-striped table-responsive-lg">
           <thead style={{ background: "#333", color: "white" }}>
             <tr>
               <th>Cus ID</th>
@@ -54,24 +82,26 @@ const AdminManageCustomers = () => {
           </thead>
           <tbody>
             {
-              customers.map((customer, index) =>
-                <tr key={index}>
-                  <td>{customer.id}</td>
-                  <td>{customer.name}</td>
-                  <td>{customer.email}</td>
-                  <td>{customer.phoneNo}</td>
-                  <td>{customer.city}</td>
-                  <td>
-                    <button className="btn btn-danger" onClick={() => removeCustomer(customer.id)}> Remove</button>
-                  </td>
-                </tr>
-              )
+              customers && displayItems
             }
           </tbody>
         </Table>
+        {
+          customers &&
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
+        }
 
-      </Jumbotron>
-    </div>
+      </div>
   )
 }
 export default AdminManageCustomers

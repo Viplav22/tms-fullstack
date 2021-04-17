@@ -8,12 +8,12 @@ import SessionService from "../service/SessionService";
 
 const Payment = (props) =>{
     const [price] = useState(SessionService.getPrice)
-    const [user, setUser] = useState(SessionService.getCurrentUser())
-    const [homeMaker, setHomeMaker] = useState(SessionService.getCurrentHomeMaker())
+    const [user] = useState(SessionService.getCurrentUser())
+    const [homeMaker] = useState(SessionService.getCurrentHomeMaker())
 
     useEffect(()=>{
         console.log("in payments " + price)
-    },[])
+    },[price])
     // form handler function
 
   const paymentStart = () => {
