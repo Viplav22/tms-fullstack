@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Jumbotron, CardDeck, Card, CardBody, CardImg, CardText, CardTitle, CardSubtitle } from "reactstrap"
+import { Jumbotron, CardDeck, Card, CardBody, CardImg, CardTitle, CardSubtitle } from "reactstrap"
 import {
   UncontrolledCarousel,
 } from 'reactstrap';

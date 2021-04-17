@@ -60,6 +60,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="text"
                                 placeholder="Enter email here"
                                 id="email"
+                                required
                                 value={user.email}
                                 readOnly="true"
                             />
@@ -69,6 +70,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="password"
                                 placeholder="Enter password here"
                                 id="password"
+                                required
                                 onChange={(e) => {
                                     setUser({ ...user, password: e.target.value })
                                 }}
@@ -82,6 +84,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="text"
                                 placeholder="Enter name here"
                                 id="name"
+                                required
                                 value={user.name}
                                 onChange={(e) => {
                                     setUser({ ...user, name: e.target.value })
@@ -93,6 +96,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="phoneNo"
                                 placeholder="Enter phoneNo here"
                                 id="phoneNo"
+                                required
                                 value={user.phoneNo}
                                 onChange={(e) => {
                                     setUser({ ...user, phoneNo: e.target.value })
@@ -107,6 +111,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="text"
                                 placeholder="Enter primaryAddress here"
                                 id="primaryAddress"
+                                required
                                 value={user.primaryAddress}
                                 onChange={(e) => {
                                     setUser({ ...user, primaryAddress: e.target.value })
@@ -120,6 +125,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="text"
                                 placeholder="Enter City here"
                                 id="city"
+                                required
                                 value={user.city}
                                 onChange={(e) => {
                                     setUser({ ...user, city: e.target.value })
@@ -131,6 +137,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="text"
                                 placeholder="Enter State here"
                                 id="state"
+                                required
                                 value={user.state}
                                 onChange={(e) => {
                                     setUser({ ...user, state: e.target.value })
@@ -142,6 +149,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="text"
                                 placeholder="Enter Country here"
                                 id="country"
+                                required
                                 value={user.country}
                                 onChange={(e) => {
                                     setUser({ ...user, country: e.target.value })
@@ -153,6 +161,7 @@ const EditHomeMakerProfile = (props) => {
                                 type="number"
                                 placeholder="Enter pincode here"
                                 id="pincode"
+                                required
                                 value={user.pincode}
                                 onChange={(e) => {
                                     setUser({ ...user, pincode: e.target.value })

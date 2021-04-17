@@ -17,7 +17,7 @@ public class Admin extends BaseEntity {
 	@Column(length = 50)
 	private String name;
 
-	@Column(length = 10)
+	@Column(length = 15)
 	private String phoneNo;
 
 	@Column(length = 10, unique = true)

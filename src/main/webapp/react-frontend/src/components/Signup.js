@@ -39,12 +39,8 @@ const Signup = (props) => {
         service.addUser(user)
             .then((response) => {
                 console.log(response)
-                // if(response.status === 409){
-                //     toast.warning("Status : " + response.status + "Duplicate Email",{position:"bottom-center"})
-                // }
-                // else
-                toast.success("Status : " + response.status + " Name : " + response.data.result.name, { position: "bottom-center" })
 
+                toast.success("Status : " + response.status + " Name : " + response.data.result.name, { position: "bottom-center" })
                 SessionService
                     .storeUser(response.data.result)
                 SessionService
@@ -52,13 +48,10 @@ const Signup = (props) => {
                 console.log(SessionService
                     .getCurrentUser().name);
                 props.history.push(`/user`, role)
-
-                // to reload the page after login to change the header to logout
                 window.location.reload()
             }, (error) => {
                 console.log(error)
-                // toast.error("something went wrong",{position:"bottom-center"})
-                toast.warning("User Exist with this Email", { position: "bottom-center" })
+                toast.error("Customer already exist with this Email", { position: "bottom-center" })
             }
             )
     }
@@ -116,6 +109,7 @@ const Signup = (props) => {
                                         <Input
                                             type="email"
                                             placeholder="Enter Email"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, email: e.target.value })
                                             }}
@@ -126,6 +120,7 @@ const Signup = (props) => {
                                             type="password"
                                             placeholder="Enter Password"
                                             id="password"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, password: e.target.value })
                                             }}
@@ -138,6 +133,7 @@ const Signup = (props) => {
                                             type="text"
                                             placeholder="Enter Name"
                                             id="name"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, name: e.target.value })
                                             }}
@@ -148,6 +144,7 @@ const Signup = (props) => {
                                             type="phoneNo"
                                             placeholder="Enter Phone Number"
                                             id="phoneNo"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, phoneNo: e.target.value })
                                             }}
@@ -160,6 +157,7 @@ const Signup = (props) => {
                                             type="text"
                                             placeholder="Enter Primary Address"
                                             id="primaryAddress"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, primaryAddress: e.target.value })
                                             }}
@@ -172,6 +170,7 @@ const Signup = (props) => {
                                             type="text"
                                             placeholder="Enter City"
                                             id="city"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, city: e.target.value })
                                             }}
@@ -182,6 +181,7 @@ const Signup = (props) => {
                                             type="text"
                                             placeholder="Enter State"
                                             id="state"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, state: e.target.value })
                                             }}
@@ -192,6 +192,7 @@ const Signup = (props) => {
                                             type="text"
                                             placeholder="Enter Country"
                                             id="country"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, country: e.target.value })
                                             }}
@@ -202,6 +203,7 @@ const Signup = (props) => {
                                             type="number"
                                             placeholder="Enter Pincode"
                                             id="pincode"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, pincode: e.target.value })
                                             }}

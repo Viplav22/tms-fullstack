@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.HomeMakerRepository;
 import com.app.dto.CustomerDTO;
 import com.app.dto.HomeMakerDTO;
@@ -75,11 +74,6 @@ public class HomeMakerSerivceImpl implements IHomeMakerService {
 
 	@Override
 	public String deleteUserDetails(int hmId) {
-		// below method rets persistent user of exists or throws exc
-		HomeMaker homeMaker = homeMakerRepo.findById(hmId)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid User ID"));
-		// setting the customer home maker : foreign key constraint
-		// customer.setHomeMaker(null);
 		homeMakerRepo.deleteById(hmId);
 		return "HomeMaker  Deleted : " + hmId;
 	}
@@ -124,7 +118,6 @@ public class HomeMakerSerivceImpl implements IHomeMakerService {
 		return null;
 	}
 
-	// Service Method
 	@Override
 	public List<HomeMakerDTO> homeMakersByCity(String city) {
 

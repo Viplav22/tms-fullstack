@@ -1,10 +1,7 @@
 package com.app.controller;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
-
-import javax.annotation.PostConstruct;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dao.OrdersRepository;
@@ -48,11 +44,6 @@ public class CustomerController {
 		System.out.println("in ctor of " + getClass().getName() + " " + customerService);
 	}
 
-	@PostConstruct
-	public void anyInit() {
-		System.out.println("in init of  " + getClass().getName() + " " + customerService);
-	}
-
 	// add REST clnt request handling method : for authenticating customer
 	@GetMapping("/login/{email}/{password}")
 	public ResponseEntity<?> authenticateCustomer(@PathVariable String email, @PathVariable String password) {
@@ -68,13 +59,35 @@ public class CustomerController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> signUpCustomer(@RequestBody Customer customer) {
 		System.out.println("In customer signup" + customer);
-			CustomerDTO dto = customerService.signUpCustomer(customer);
-			if(dto == null) {
-				return new ResponseEntity<>(HttpStatus.CONFLICT);
-			}
-			return ResponseEntity.ok(new ResponseDTO<>(dto));
+		CustomerDTO dto = customerService.signUpCustomer(customer);
+		if (dto == null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
+		return ResponseEntity.ok(new ResponseDTO<>(dto));
 	}
 
+	// Add REST request handling method to update user details
+	@PutMapping("/updateUserDetails")
+	public ResponseEntity<?> updateUserDetails(@RequestBody CustomerDTO customerDTO) {
+		System.out.println("in  update details " + customerDTO);
+		return ResponseEntity.ok(new ResponseDTO<>(customerService.updateUserDetails(customerDTO)));
+	}
+
+	// REST request handling method to delete user details
+	@DeleteMapping("/deleteCustomer/{custId}")
+	public ResponseEntity<?> deleteUserDetails(@PathVariable int custId) {
+		System.out.println("in del user dtls " + custId);
+		return ResponseEntity.ok(new ResponseDTO<>(customerService.deleteUserDetails(custId)));
+	}
+
+	// add Rest clnt request handling method : for getting all Customers
+	@GetMapping("/getAllCustomers")
+	public ResponseEntity<?> getAllCustomers() {
+		System.out.println("in get All Customers");
+		return ResponseEntity.ok(new ResponseDTO<>(customerService.getAllCustomers()));
+	}
+
+	// add req handing method for adding homeMaker to customer
 	@PutMapping("/select-homeMaker/{hmId}/{custId}")
 	public ResponseEntity<?> addMyHomeMaker(@PathVariable String hmId, @PathVariable String custId) {
 		System.out.println("In addHomeMaker" + " " + hmId + " " + custId);
@@ -85,52 +98,33 @@ public class CustomerController {
 	// add req handing method for getting selected homeMaker
 	@GetMapping("/getMyHomeMaker/{custId}")
 	public ResponseEntity<?> getMyHomeMaker(@PathVariable String custId) {
-
 		System.out.println("in getMyHomeMaker " + custId);
 		return ResponseEntity.ok(new ResponseDTO<>(customerService.getMyHomeMaker(Integer.parseInt(custId))));
 
 	}
 
+	// add req handing method for removing homeMaker linked to customer
 	@DeleteMapping("/removeMyHomeMaker/{custId}")
 	public ResponseEntity<?> removeMyHomeMaker(@PathVariable String custId) {
 		System.out.println("in removeMyHomeMaker " + custId);
 		return ResponseEntity.ok(customerService.removeMyHomeMaker(Integer.parseInt(custId)));
 	}
 
-	// add req handing method for updating Plans
+	// add req handing method for updating food Plans
 	@PutMapping("/updatePackage/{planType}/{pack}")
 	public ResponseEntity<?> updatePackage(@PathVariable String planType, @PathVariable String pack,
 			@RequestBody Customer customer) {
+		System.out.println("in updatePackage : " + planType + " : " + pack + " : " + customer);
 		return ResponseEntity.ok(new ResponseDTO<>(customerService.updatePackage(planType, pack, customer)));
 	}
 
-	// Add REST request handling method to update user details
-	@PutMapping("/updateUserDetails")
-	public ResponseEntity<?> updateUserDetails(@RequestBody CustomerDTO customerDTO) {
-		System.out.println("in  : update details " + customerDTO);
-		return ResponseEntity.ok(new ResponseDTO<>(customerService.updateUserDetails(customerDTO)));
-	}
+	// add req handing method for adding order & payment details in orders table
+	@PostMapping("/create_order/{custId}/{homeMakerId}") // we want only to send string not viewname so use
+															// @ResponseBody
+	public String createOrder(@PathVariable String custId, @PathVariable String homeMakerId,
+			@RequestBody Map<String, Object> data, Principal principal) throws Exception {
+		System.out.println("in createOrder : " + data);
 
-	// add Rest clnt request handling method : for getting all Customers
-	@GetMapping("/getAllCustomers")
-	public ResponseEntity<?> getAllCustomers() {
-		System.out.println("in get All Customers");
-		return ResponseEntity.ok(new ResponseDTO<>(customerService.getAllCustomers()));
-	}
-
-	// REST request handling method to delete user details
-	@DeleteMapping("/deleteCustomer/{custId}")
-	public ResponseEntity<?> deleteUserDetails(@PathVariable int custId) {
-		System.out.println("in del user dtls " + custId);
-		return ResponseEntity.ok(new ResponseDTO<>(customerService.deleteUserDetails(custId)));
-	}
-
-	// creating order for payment
-	@PostMapping("/create_order/{custId}/{homeMakerId}") // we want only to send string not viewname so use @ResponseBody
-	public String createOrder(@PathVariable String custId, @PathVariable String homeMakerId, @RequestBody Map<String, Object> data, Principal principal)
-			throws Exception {
-		System.out.println("in payment order");
-		System.out.println(data);
 		int amt = Integer.parseInt(data.get("amount").toString()); // taking data
 
 		// razor pay
@@ -166,8 +160,12 @@ public class CustomerController {
 		return order.toString();
 	}
 
+	// add req handing method for updating order status
 	@PostMapping("/update_order")
 	public ResponseEntity<?> updateOrder(@RequestBody Map<String, Object> data) {
+
+		System.out.println("in updateOrder ");
+
 		// taking updated data from frontend server updating data
 		Orders tiffinOrders = this.ordersRepository.findByOrderId(data.get("order_id").toString());
 		// getting order(tiffinOrders) from orderId
@@ -179,13 +177,14 @@ public class CustomerController {
 
 		System.out.println(data);
 
-		return ResponseEntity.ok("done"); // messeage
+		return ResponseEntity.ok("done"); // Message
 	}
-	
-	// add Rest clnt request handling method : for getting all Orders of the Customer By ID
-		@GetMapping("/getAllOrders/{custId}")
-		public ResponseEntity<?> getAllOrders(@PathVariable String custId) {
-			System.out.println("in get All Orders");
-			return ResponseEntity.ok(new ResponseDTO<>(ordersRepository.getAllCustomerById(Integer.parseInt(custId))));
-		}
+
+	// add Rest clnt request handling method : for getting all Orders of the
+	// Customer By ID
+	@GetMapping("/getAllOrders/{custId}")
+	public ResponseEntity<?> getAllOrders(@PathVariable String custId) {
+		System.out.println("in get All Orders : " + custId);
+		return ResponseEntity.ok(new ResponseDTO<>(ordersRepository.getAllCustomerById(Integer.parseInt(custId))));
+	}
 }

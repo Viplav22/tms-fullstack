@@ -136,6 +136,7 @@ const Login = (props) => {
                                             type="email"
                                             placeholder="Enter email here"
                                             id="email"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, email: e.target.value })
                                             }}
@@ -146,6 +147,7 @@ const Login = (props) => {
                                             type="password"
                                             placeholder="Enter password here"
                                             id="password"
+                                            required
                                             onChange={(e) => {
                                                 setUser({ ...user, password: e.target.value })
                                             }}

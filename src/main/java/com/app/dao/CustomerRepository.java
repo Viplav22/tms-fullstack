@@ -15,6 +15,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	Optional<Customer> authenticateCustomer(@Param("email") String email, @Param("password") String password);
 
 	Customer findByEmail(String email);
-
-	Customer findByHomeMakerId(int hmId);
 }

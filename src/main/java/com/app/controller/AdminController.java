@@ -16,6 +16,7 @@ import com.app.service.IAdminService;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+	
 	@Autowired
 	private IAdminService adminService;
 
@@ -34,11 +35,11 @@ public class AdminController {
 		else
 			return ResponseEntity.ok(admin);
 	}
-	
+
 	@GetMapping("/getAllOrders")
-	public ResponseEntity<?> getAllOrders(){
+	public ResponseEntity<?> getAllOrders() {
 		adminService.getAllOrders().forEach(System.out::println);
-		return  ResponseEntity.ok(adminService.getAllOrders());
+		return ResponseEntity.ok(adminService.getAllOrders());
 	}
 
 }

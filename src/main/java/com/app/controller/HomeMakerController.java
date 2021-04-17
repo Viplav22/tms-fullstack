@@ -1,7 +1,5 @@
 package com.app.controller;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +28,7 @@ public class HomeMakerController {
 	// dependency
 	@Autowired // autowire=byType}
 	private IHomeMakerService homeMakerService;
-	
+
 	@Autowired
 	private OrdersRepository ordersRepository;
 
@@ -39,15 +37,10 @@ public class HomeMakerController {
 		System.out.println("in ctor of " + getClass().getName() + " " + homeMakerService);
 	}
 
-	@PostConstruct
-	public void anyInit() {
-		System.out.println("in init of  " + getClass().getName() + " " + homeMakerService);
-	}
-
-	// add REST clnt request handling method : for authenticating customer
+	// add REST clnt request handling method : for authenticating homemaker
 	@GetMapping("/login/{email}/{password}")
-	public ResponseEntity<?> authenticateCustomer(@PathVariable String email, @PathVariable String password) {
-		System.out.println("in authenticate HomeMaker " + email + " " + password);
+	public ResponseEntity<?> authenticateHomeMaker(@PathVariable String email, @PathVariable String password) {
+		System.out.println("in authenticate HomeMaker " + email + " : " + password);
 		HomeMaker homeMaker = homeMakerService.authenticateHomeMaker(email, password);
 		if (homeMaker == null)
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -58,7 +51,7 @@ public class HomeMakerController {
 	// add REST clnt request handling method : for signing up home maker
 	@PostMapping("/signup")
 	public ResponseEntity<?> signUpHomeMaker(@RequestBody HomeMaker homeMaker) {
-		System.out.println("In homemaker signup" + homeMaker);
+		System.out.println("In homemaker signup " + homeMaker);
 		HomeMakerDTO dto = homeMakerService.signUpHomeMaker(homeMaker);
 		if (dto == null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -66,61 +59,59 @@ public class HomeMakerController {
 		return ResponseEntity.ok(new ResponseDTO<>(dto));
 	}
 
+	// add Rest clnt request handling method : for getting homeMaker by id
+	@GetMapping("/getHomeMaker/{hId}")
+	public ResponseEntity<?> getHomeMaker(@PathVariable String hId) {
+		System.out.println("in getHomeMaker : "+hId);
+		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getHomeMakerById(Integer.parseInt(hId))));
+	}
+	
 	// add REST clnt request handling method : for getting all home maker
 	@GetMapping("/get-all-home-makers")
 	public ResponseEntity<?> getAllHomeMakers() {
 		System.out.println("In get all home makers");
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getAllHomeMakers()));
 	}
-
-	// add Rest clnt request handling method : for getting particular homeMaker
-	@GetMapping("/getHomeMaker/{hId}")
-	public ResponseEntity<?> getHomeMaker(@PathVariable String hId) {
-		System.out.println("in getHomeMaker");
-		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getHomeMakerById(Integer.parseInt(hId))));
+	
+	// Add REST request handling method to update homemaker details
+	@PutMapping("/updateUserDetails")
+	public ResponseEntity<?> updateUserDetails(@RequestBody HomeMakerDTO homeMakerDTO) {
+		System.out.println("in  : update details " + homeMakerDTO);
+		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.updateUserDetails(homeMakerDTO)));
 	}
-
-	// REST request handling method to delete user details
+	
+	// REST request handling method to delete homemaker details
 	@DeleteMapping("/deleteHomeMaker/{hmId}")
 	public ResponseEntity<?> deleteUserDetails(@PathVariable int hmId) {
 		System.out.println("in del user dtls " + hmId);
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.deleteUserDetails(hmId)));
 	}
 
-	// Add REST request handling method to update user details
-	@PutMapping("/updateUserDetails")
-	public ResponseEntity<?> updateUserDetails(@RequestBody HomeMakerDTO homeMakerDTO) {
-		System.out.println("in  : update details " + homeMakerDTO);
-		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.updateUserDetails(homeMakerDTO)));
-	}
-
-	// add Rest clnt request handling method : for getting particular My Customer
+	// add Rest clnt request handling method : for getting all Customers of homemaker by id
 	@GetMapping("/getMyCustomers/{hId}")
 	public ResponseEntity<?> getMyCustomers(@PathVariable String hId) {
 		System.out.println("in getMyCustomers " + hId);
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getMyCustomers(Integer.parseInt(hId))));
 	}
 
-	
-	// add Rest clnt request handling method : for getting all the cities in which HomeMakers are available
-	
+	// add Rest clnt request handling method : for getting all the cities in which
+	// HomeMakers are available : for select drop down
 	@GetMapping("/cities")
 	public ResponseEntity<?> cities() {
 		System.out.println("In cities");
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getAllCities()));
-
 	}
-	
+
 	// add Rest clnt request handling method : for showing HomeMaker by City
 	@GetMapping("/homeMakersByCity/{city}")
 	public ResponseEntity<?> homeMakersByCity(@PathVariable String city) {
-
 		System.out.println("In homeMakerByCity");
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.homeMakersByCity(city)));
 
 	}
-	
-	// add Rest clnt request handling method : for getting all Orders of the Customer By ID
+
+	// add Rest clnt request handling method : for getting all Orders of the
+	// Homemaker By ID
 	@GetMapping("/getAllOrders/{hmId}")
 	public ResponseEntity<?> getAllOrders(@PathVariable String hmId) {
 		System.out.println("in get All Orders");

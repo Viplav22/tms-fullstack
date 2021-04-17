@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.custom_exceptions.CustomerHandlingException;
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.CustomerRepository;
 import com.app.dao.HomeMakerRepository;
@@ -45,9 +44,9 @@ public class CustomerSerivceImpl implements ICustomerService {
 
 	@Override
 	public CustomerDTO signUpCustomer(Customer customer) {
-		
+
 		if (customerRepo.findByEmail(customer.getEmail()) != null) {
-			//"Customer Exist with this email"
+			// "Customer Exist with this email"
 			return null;
 		}
 
@@ -58,6 +57,48 @@ public class CustomerSerivceImpl implements ICustomerService {
 		CustomerDTO dto = new CustomerDTO();
 		BeanUtils.copyProperties(persistentCustomer, dto);
 		return dto;
+	}
+
+	@Override
+	public Customer updateUserDetails(CustomerDTO customerDTO) {
+		System.out.println("in service :  " + customerDTO);
+
+		// fetch exsiting details from the db
+		Customer persistentCustomer = customerRepo.findByEmail(customerDTO.getEmail());
+
+		System.out.println("user dtls from db " + persistentCustomer);
+
+		// copy updated user details coming from request payload ---> User details
+		BeanUtils.copyProperties(customerDTO, persistentCustomer);
+
+		System.out.println("updated user dtls" + persistentCustomer);
+
+		return persistentCustomer;
+		// here returning customer instead of DTO because DTO doesn't has plan and all
+		// but customer does
+	}
+
+	@Override
+	public List<CustomerDTO> getAllCustomers() {
+
+		List<CustomerDTO> dtoList = new ArrayList<>();
+		customerRepo.findAll().forEach(h -> {
+			CustomerDTO dto = new CustomerDTO();
+			BeanUtils.copyProperties(h, dto);
+			dtoList.add(dto);
+		});
+		return dtoList;
+	}
+
+	@Override
+	public String deleteUserDetails(int custId) {
+		// below method rets persistent user of exists or throws exc
+		Customer customer = customerRepo.findById(custId)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid User ID"));
+		// setting the customer home maker : foreign key constraint
+		customer.setHomeMaker(null);
+		customerRepo.deleteById(custId);
+		return "Customer  Deleted : " + custId;
 	}
 
 	@Override
@@ -112,48 +153,6 @@ public class CustomerSerivceImpl implements ICustomerService {
 		customerRepo.save(persistentCustomer);
 		System.out.println(persistentCustomer);
 		return persistentCustomer;
-	}
-
-	@Override
-	public Customer updateUserDetails(CustomerDTO customerDTO) {
-		System.out.println("in service :  " + customerDTO);
-
-		// fetch exsiting details from the db
-		Customer persistentCustomer = customerRepo.findByEmail(customerDTO.getEmail());
-
-		System.out.println("user dtls from db " + persistentCustomer);
-
-		// copy updated user details coming from request payload ---> User details
-		BeanUtils.copyProperties(customerDTO, persistentCustomer);
-
-		System.out.println("updated user dtls" + persistentCustomer);
-
-		return persistentCustomer;
-		// here returning customer instead of DTO because DTO doesn't has plan and all
-		// but customer does
-	}
-
-	@Override
-	public List<CustomerDTO> getAllCustomers() {
-
-		List<CustomerDTO> dtoList = new ArrayList<>();
-		customerRepo.findAll().forEach(h -> {
-			CustomerDTO dto = new CustomerDTO();
-			BeanUtils.copyProperties(h, dto);
-			dtoList.add(dto);
-		});
-		return dtoList;
-	}
-
-	@Override
-	public String deleteUserDetails(int custId) {
-		// below method rets persistent user of exists or throws exc
-		Customer customer = customerRepo.findById(custId)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid User ID"));
-		// setting the customer home maker : foreign key constraint
-		customer.setHomeMaker(null);
-		customerRepo.deleteById(custId);
-		return "Customer  Deleted : " + custId;
 	}
 
 }
