@@ -1,0 +1,87 @@
+reponse dto will not have password
+
+create new react app
+npm create-react-app tms-frontend
+
+bootstrap
+npm install bootstrap reactstrap 
+
+alert msgs
+npm install react-toastify
+
+framework
+npm install axios
+
+routing
+npm install react-router-dom
+
+everything
+to update
+npm update
+
+npm install bootstrap reactstrap react-toastify axios react-router-dom
+
+PAYMENT
+npm install jquery popper.js
+
+npm install sweetalert
+
+import $ from 'jquery';
+import Popper from 'popper.js';
+
+
+<!-- Payment Integration -->
+	     <dependency>
+               <groupId>com.razorpay</groupId>
+               <artifactId>razorpay-java</artifactId>
+			   <version>1.3.9</version> 
+		</dependency>
+		 
+ INDEX.HTML
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+TODO-----------------------------------------------------------------------------
+frontend to backend we are sending password
+but if use @RequestBody CustomerDTO : it will not have password : will not be able to extract it
+so send password seperately : verify it with user in db : if invalid send invalid cred..
+if valid then save the updated user details from the dto (copy it) which will basic user details not plan hm order
+so dto copy will not set these to null
+if sent user as request body from frontend and if we update then it will set these to null
+
+same with home maker too
+
+update local storage on selecting plan
+
+signup duplicate email : not done yet
+
+homemaker orphan removal = true ****
+
+footer functionalities
+
+About Us : Map
+
+corousel update
+ 
+ details plan home page update
+ 
+ AuthService Name
+ 
+ Table Edit
+ 
+ Admin home profile
+ 
+ 
+ ===================================
+ GenericResponse return type in controller
+
+to get id from routing using class component
+id : this.props.match.params.id
+
+error handling
+
+
+### USE CLASS COMPONENT IN HEADER AND USE COMPONENTDIDUPDATE to solve refresh problem
+
+
+### USE REDUX TO SAVE THE STATE
