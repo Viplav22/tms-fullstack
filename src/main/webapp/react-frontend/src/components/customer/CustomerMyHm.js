@@ -15,6 +15,7 @@ const CustomerMyHm = (props) => {
     CustomerService.getMyHomeMaker(SessionService.getCurrentUser().id).then((response) => {
       console.log(response.data.result)
       setHomeMaker(response.data.result)
+      SessionService.storeHomeMaker(response.data.result)
     })
   }, [])
 

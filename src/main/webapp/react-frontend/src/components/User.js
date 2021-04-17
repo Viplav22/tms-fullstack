@@ -84,9 +84,10 @@ const User = () => {
                   <Route path={["/customer/profile", "/user"]} component={CustomerProfile} />
                   <Route path="/customer/homeMaker" component={CustomerHm} exact />
                   <Route path="/customer/myHomeMaker" component={CustomerMyHm} exact />
-                  <Route path="/customer/myPlan" component={CustomerPlan} exact />
+                  {/* <Route path="/customer/myPlan" component={CustomerPlan} exact /> */}
                   <Route path="/customer/edit-profile" component={EditCustomerProfile} exact />
                   <Route path="/customer/orders" component={CustomerOrders} exact />
+                  <Route path="/payment" component={Payment} exact />
                 </Switch>
               }
               {
@@ -107,7 +108,6 @@ const User = () => {
                   <Route path="/homeMaker/orders" component={HomeMakerOrders} exact />
                 </Switch>
               }
-              <Route path="/payment" component={Payment} exact />
             </Col>
           </Row>
         </Container>
