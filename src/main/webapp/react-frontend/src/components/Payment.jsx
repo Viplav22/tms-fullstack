@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import $ from 'jquery';
 import { toast } from "react-toastify"
-import axios from "axios"
-import Base_Url from "../service/Base_Url"
 import swal from 'sweetalert'
 import SessionService from "../service/SessionService";
+import OrderService from "../service/OrderService";
 
 const Payment = (props) =>{
     const [price] = useState(SessionService.getPrice)
@@ -34,7 +33,7 @@ const Payment = (props) =>{
     const paymentCustomertoServer=(userId,homeMakerId)=>{
         let amount=$("#payment_field").val(); 
 
-        axios.post(Base_Url+'/customer/create_order/'+userId+'/'+homeMakerId,{amount: amount}).then((response) => {
+        OrderService.createOrder(userId,homeMakerId,amount).then((response) => {
            
             console.log('response', response)
             if(response.data.status === "created"){
@@ -108,9 +107,7 @@ const Payment = (props) =>{
      }
 
     function updatePaymentOnServer(payment_id, order_id ,status){
-            
-        axios.post(`${Base_Url}/customer/update_order`,{payment_id: payment_id ,order_id: order_id ,
-             status: status }).then((response) => {
+        OrderService.updateOrder(payment_id,order_id,status).then((response) => {
                 console.log(response)
                 swal("Good job!", "congrates! Payment successful !!", "success");
 

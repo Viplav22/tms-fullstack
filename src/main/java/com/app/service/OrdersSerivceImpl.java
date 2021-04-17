@@ -30,4 +30,9 @@ public class OrdersSerivceImpl implements IOrdersService {
 	public List<Orders> getHomeMakerOrders(int hmId) {
 		return orderRepo.getAllHomeMakerById(hmId);
 	}
+
+	@Override
+	public void saveOrderDetails(Orders tiffinOrders) {
+		orderRepo.save(tiffinOrders);
+	}
 }

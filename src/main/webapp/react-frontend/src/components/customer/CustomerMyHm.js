@@ -24,7 +24,7 @@ const CustomerMyHm = (props) => {
   const removeHomeMaker = () => {
     CustomerService.removeMyHomeMaker(SessionService.getCurrentUser().id).then(response => {
       console.log(response)
-      toast.success(response.data)
+      toast.success(response.data,{ position: "bottom-center" })
       setHomeMaker(null)
       SessionService.removeHomeMaker()
     })

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dao.OrdersRepository;
 import com.app.dto.HomeMakerDTO;
 import com.app.dto.ResponseDTO;
 import com.app.pojos.HomeMaker;
@@ -59,24 +58,24 @@ public class HomeMakerController {
 	// add Rest clnt request handling method : for getting homeMaker by id
 	@GetMapping("/getHomeMaker/{hId}")
 	public ResponseEntity<?> getHomeMaker(@PathVariable String hId) {
-		System.out.println("in getHomeMaker : "+hId);
+		System.out.println("in getHomeMaker : " + hId);
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getHomeMakerById(Integer.parseInt(hId))));
 	}
-	
+
 	// add REST clnt request handling method : for getting all home maker
 	@GetMapping("/get-all-home-makers")
 	public ResponseEntity<?> getAllHomeMakers() {
 		System.out.println("In get all home makers");
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.getAllHomeMakers()));
 	}
-	
+
 	// Add REST request handling method to update homemaker details
 	@PutMapping("/updateUserDetails")
 	public ResponseEntity<?> updateUserDetails(@RequestBody HomeMakerDTO homeMakerDTO) {
 		System.out.println("in  : update details " + homeMakerDTO);
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.updateUserDetails(homeMakerDTO)));
 	}
-	
+
 	// REST request handling method to delete homemaker details
 	@DeleteMapping("/deleteHomeMaker/{hmId}")
 	public ResponseEntity<?> deleteUserDetails(@PathVariable int hmId) {
@@ -84,7 +83,8 @@ public class HomeMakerController {
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.deleteUserDetails(hmId)));
 	}
 
-	// add Rest clnt request handling method : for getting all Customers of homemaker by id
+	// add Rest clnt request handling method : for getting all Customers of
+	// homemaker by id
 	@GetMapping("/getMyCustomers/{hId}")
 	public ResponseEntity<?> getMyCustomers(@PathVariable String hId) {
 		System.out.println("in getMyCustomers " + hId);

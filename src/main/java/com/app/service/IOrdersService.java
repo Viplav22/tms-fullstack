@@ -10,4 +10,6 @@ public interface IOrdersService {
 	List <Orders> getCustomerOrders(int cutId);
 	
 	List<Orders> getHomeMakerOrders(int hmId);
+
+	 void saveOrderDetails(Orders tiffinOrders);
 }

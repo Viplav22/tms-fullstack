@@ -49,6 +49,8 @@ const CustomerProfile = (props) => {
             <CardBody>
               <CardTitle tag="h5">ADDRESS</CardTitle>
               <CardSubtitle tag="h6" className="mb-2 text-muted">{user.primaryAddress}</CardSubtitle>
+              <CardSubtitle tag="h6" className="mb-2 text-muted">{user.city}</CardSubtitle>
+              <CardSubtitle tag="h6" className="mb-2 text-muted">{user.pincode}</CardSubtitle>
             </CardBody>
           </Card>
           <Card>
