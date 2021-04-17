@@ -29,9 +29,6 @@ public class HomeMakerController {
 	@Autowired // autowire=byType}
 	private IHomeMakerService homeMakerService;
 
-	@Autowired
-	private OrdersRepository ordersRepository;
-
 	public HomeMakerController() {
 		super();
 		System.out.println("in ctor of " + getClass().getName() + " " + homeMakerService);
@@ -108,13 +105,5 @@ public class HomeMakerController {
 		System.out.println("In homeMakerByCity");
 		return ResponseEntity.ok(new ResponseDTO<>(homeMakerService.homeMakersByCity(city)));
 
-	}
-
-	// add Rest clnt request handling method : for getting all Orders of the
-	// Homemaker By ID
-	@GetMapping("/getAllOrders/{hmId}")
-	public ResponseEntity<?> getAllOrders(@PathVariable String hmId) {
-		System.out.println("in get All Orders");
-		return ResponseEntity.ok(new ResponseDTO<>(ordersRepository.getAllHomeMakerById(Integer.parseInt(hmId))));
 	}
 }

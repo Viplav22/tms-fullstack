@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Table } from "reactstrap"
-import CustomerService from "../../service/CustomerService"
+import OrderService from "../../service/OrderService"
 import { toast } from "react-toastify"
 import SessionService from "../../service/SessionService"
 
@@ -13,7 +13,7 @@ const CustomerOrders = () => {
 
   useEffect(() => {
     document.title = "Customer || My Orders"
-    CustomerService.getAllOrders(user.id)
+    OrderService.ofCustomer(user.id)
       .then(response => {
         console.log(response)
         setOrders(response.data.result)
@@ -32,9 +32,9 @@ const CustomerOrders = () => {
 
   const displayItems = orders
     .slice(pagesVisited, pagesVisited + ordersPerPage)
-    .map((order) => {
+    .map((order, index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{order.orderId}</td>
           <td>{order.paymentId}</td>
           <td>{order.dateTime}</td>

@@ -179,12 +179,4 @@ public class CustomerController {
 
 		return ResponseEntity.ok("done"); // Message
 	}
-
-	// add Rest clnt request handling method : for getting all Orders of the
-	// Customer By ID
-	@GetMapping("/getAllOrders/{custId}")
-	public ResponseEntity<?> getAllOrders(@PathVariable String custId) {
-		System.out.println("in get All Orders : " + custId);
-		return ResponseEntity.ok(new ResponseDTO<>(ordersRepository.getAllCustomerById(Integer.parseInt(custId))));
-	}
 }

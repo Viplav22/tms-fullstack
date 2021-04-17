@@ -36,9 +36,9 @@ const HomeMakerCustomers = () => {
 
   const displayItems = customers
     .slice(pagesVisited, pagesVisited + customersPerPage)
-    .map((customer) => {
+    .map((customer, index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{customer.id}</td>
           <td>{customer.name}</td>
           <td>{customer.email}</td>

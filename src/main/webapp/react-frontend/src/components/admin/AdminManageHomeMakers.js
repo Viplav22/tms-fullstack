@@ -1,6 +1,5 @@
 import React, { useEffect, useState, } from "react"
 import { Table } from "reactstrap"
-import CustomerService from "../../service/CustomerService"
 import { toast } from "react-toastify"
 import HomeMakerService from "../../service/HomeMakerService"
 
@@ -17,7 +16,7 @@ const AdminManageHomeMakers = () => {
   }, [reload])
 
   const allHomeMakers = () => {
-    CustomerService.getAllHomeMakers()
+    HomeMakerService.getAllHomeMakers()
       .then((response) => {
         console.log(response)
         setHomeMakers(response.data.result)
@@ -35,9 +34,9 @@ const AdminManageHomeMakers = () => {
 
   const displayItems = homeMakers
     .slice(pagesVisited, pagesVisited + homeMakersPerPage)
-    .map((homeMaker) => {
+    .map((homeMaker,index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{homeMaker.id}</td>
           <td>{homeMaker.name}</td>
           <td>{homeMaker.email}</td>

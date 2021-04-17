@@ -2,7 +2,6 @@ import axios from 'axios';
 import Base_URL from "./Base_Url"
 
 const HOMEMAKER_API_BASE_URL = Base_URL+'/homeMaker';
-const CUSTOMER_API_BASE_URL = Base_URL+'/customer';
 
 class HomeMakerService {
 
@@ -18,16 +17,16 @@ class HomeMakerService {
         return axios.get(HOMEMAKER_API_BASE_URL+'/getHomeMaker/'+userId)
     }
 
-    getAllCustomers(){
-        return axios.get(CUSTOMER_API_BASE_URL+'/getAllCustomers')
-    }
-
     deleteUser(userId) {
         return axios.delete(HOMEMAKER_API_BASE_URL + '/deleteHomeMaker/' + userId);
     }
 
     updateUserDetails(user) {
         return axios.put(HOMEMAKER_API_BASE_URL + '/updateUserDetails', user);
+    }
+
+    getAllHomeMakers() {
+        return axios.get(HOMEMAKER_API_BASE_URL + "/get-all-home-makers")
     }
 
     getMyCustomers(id){
@@ -40,10 +39,6 @@ class HomeMakerService {
 
     homeMakersByCity(city){
         return axios.get(HOMEMAKER_API_BASE_URL+'/homeMakersByCity/'+city)
-    }
-
-    getAllOrders(userId){
-        return axios.get(HOMEMAKER_API_BASE_URL+'/getAllOrders/'+userId)
     }
 }
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Table } from "reactstrap"
 import { toast } from "react-toastify"
-import HomeMakerService from "../../service/HomeMakerService"
 import CustomerService from "../../service/CustomerService"
 
 import ReactPaginate from "react-paginate";
@@ -17,7 +16,7 @@ const AdminManageCustomers = () => {
   }, [reload])
 
   const allCustomers = () => {
-    HomeMakerService.getAllCustomers()
+    CustomerService.getAllCustomers()
       .then((response) => {
         console.log(response)
         setCustomers(response.data.result)
@@ -35,9 +34,9 @@ const AdminManageCustomers = () => {
 
   const displayItems = customers
     .slice(pagesVisited, pagesVisited + customersPerPage)
-    .map((customer) => {
+    .map((customer, index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{customer.id}</td>
           <td>{customer.name}</td>
           <td>{customer.email}</td>

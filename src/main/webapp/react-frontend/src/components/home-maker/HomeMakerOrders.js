@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Table } from "reactstrap"
 import { toast } from "react-toastify"
 import SessionService from "../../service/SessionService"
-import HomeMakerService from "../../service/HomeMakerService"
+import OrderService from "../../service/OrderService"
 
 import ReactPaginate from "react-paginate";
 
@@ -13,7 +13,7 @@ const HomeMakerOrders = () => {
 
   useEffect(() => {
     document.title = "Home Maker || My Orders"
-    HomeMakerService.getAllOrders(user.id)
+    OrderService.ofHomeMaker(user.id)
       .then(response => {
         console.log(response)
         setOrders(response.data.result)
@@ -32,9 +32,9 @@ const HomeMakerOrders = () => {
 
   const displayItems = orders
     .slice(pagesVisited, pagesVisited + ordersPerPage)
-    .map((order) => {
+    .map((order, index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{order.orderId}</td>
           <td>{order.paymentId}</td>
           <td>{order.dateTime}</td>

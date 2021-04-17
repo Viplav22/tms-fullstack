@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Table } from "reactstrap"
-import AdminService from "../../service/AdminService"
+import OrderService from "../../service/OrderService"
 
 import ReactPaginate from "react-paginate";
 
@@ -14,7 +14,7 @@ const AdminManageOrders = () => {
   }, [])
 
   const getAllOrders = () => {
-    AdminService.getAllOrders().then((response) => {
+    OrderService.all().then((response) => {
       console.log(response)
       setOrders(response.data)
     })
@@ -27,9 +27,9 @@ const AdminManageOrders = () => {
 
   const displayItems = orders
     .slice(pagesVisited, pagesVisited + ordersPerPage)
-    .map((order) => {
+    .map((order,index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{order.orderId}</td>
           <td>{order.paymentId}</td>
           <td>{order.dateTime}</td>

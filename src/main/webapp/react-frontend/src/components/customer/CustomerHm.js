@@ -18,7 +18,7 @@ const CustomerHm = (props) => {
   }, [])
 
   const allHomeMakers = () => {
-    CustomerService.getAllHomeMakers()
+    HomeMakerService.getAllHomeMakers()
       .then((response) => {
         console.log(response)
         setHomeMakers(response.data.result)
@@ -86,9 +86,9 @@ const CustomerHm = (props) => {
 
   const displayItems = homeMakers
     .slice(pagesVisited, pagesVisited + homeMakersPerPage)
-    .map((homeMaker) => {
+    .map((homeMaker, index) => {
       return (
-        <tr className="items">
+        <tr key={index} className="items">
           <td>{homeMaker.name}</td>
           <td>{homeMaker.email}</td>
           <td>{homeMaker.phoneNo}</td>

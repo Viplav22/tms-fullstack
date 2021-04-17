@@ -3,22 +3,16 @@ import Base_URL from "./Base_Url"
 
 import SessionService from './SessionService';
 
-const CUSTOMER_API_BASE_URL = Base_URL+'/customer';
-
-const HOMEMAKER_API_BASE_URL = Base_URL+'/homeMaker';
+const CUSTOMER_API_BASE_URL = Base_URL + '/customer';
 
 class CustomerService {
 
-    authenticateUser(email, password){
+    authenticateUser(email, password) {
         return axios.get(CUSTOMER_API_BASE_URL + '/login/' + email + '/' + password)
     }
 
-    addUser(user){
-        return axios.post(CUSTOMER_API_BASE_URL + '/signup/',user)
-    }
-
-    getAllHomeMakers(){
-        return axios.get(HOMEMAKER_API_BASE_URL + "/get-all-home-makers")
+    addUser(user) {
+        return axios.post(CUSTOMER_API_BASE_URL + '/signup/', user)
     }
 
     deleteUser(userId) {
@@ -29,11 +23,15 @@ class CustomerService {
         return axios.put(CUSTOMER_API_BASE_URL + '/updateUserDetails', user);
     }
 
-    addHomeMaker(homeMakerId,custId){
-        return axios.put(CUSTOMER_API_BASE_URL + '/select-homeMaker/' + homeMakerId+ '/' +custId)
+    getAllCustomers() {
+        return axios.get(CUSTOMER_API_BASE_URL + '/getAllCustomers')
     }
 
-    getMyHomeMaker(id){
+    addHomeMaker(homeMakerId, custId) {
+        return axios.put(CUSTOMER_API_BASE_URL + '/select-homeMaker/' + homeMakerId + '/' + custId)
+    }
+
+    getMyHomeMaker(id) {
         return axios.get(CUSTOMER_API_BASE_URL + '/getMyHomeMaker/' + id)
     }
 
@@ -41,12 +39,8 @@ class CustomerService {
         return axios.delete(CUSTOMER_API_BASE_URL + '/removeMyHomeMaker/' + userId)
     }
 
-    updatePackage(planType,pack){
-        return axios.put(CUSTOMER_API_BASE_URL+'/updatePackage/'+planType+'/'+pack,SessionService.getCurrentUser())
-    }
-
-    getAllOrders(userId){
-        return axios.get(CUSTOMER_API_BASE_URL+'/getAllOrders/'+userId)
+    updatePackage(planType, pack) {
+        return axios.put(CUSTOMER_API_BASE_URL + '/updatePackage/' + planType + '/' + pack, SessionService.getCurrentUser())
     }
 }
 
