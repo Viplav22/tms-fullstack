@@ -41,6 +41,7 @@ class SessionService {
     sessionStorage.removeItem("homeMaker")
     sessionStorage.removeItem("role")
     sessionStorage.removeItem("price")
+    //sessionStorage.clear()//for REMOVING ALL saved data from sessionStorage
   }
 }
 
