@@ -65,7 +65,7 @@ const AboutUs = () => {
           <div className="container flip-card col-lg-4 col-sm-12 my-2">
             <div className="flip-card-inner">
               <div className="flip-card-front">
-                <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C4E03AQGW9wgETyi4pA/profile-displayphoto-shrink_800_800/0/1616747268647?e=1622073600&v=beta&t=JyYiogFuGqQF45A49Rh5gsE9c7yxX3ydqzIH8qcNIE8" alt="Avatar" />
+                <img id="img" width="100%" height="100%" src="https://media-exp1.licdn.com/dms/image/C4E03AQHv_dJD2gXYKQ/profile-displayphoto-shrink_800_800/0/1617665491623?e=1625097600&v=beta&t=VON3c6BgCa0qM-19mlw9G5kQYN8o9MCRiNYoUcA98kE" alt="Avatar" />
               </div>
               <div className="flip-card-back">
                 <h5 className="mt-2">AKHLESH GOUR</h5>
